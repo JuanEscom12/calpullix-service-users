@@ -1,0 +1,102 @@
+spring:
+  mvc: 
+    throw-exception-if-no-handler-found: true
+  jackson:
+    deserialization: 
+      fail-on-missing-creator-properties: 'false'
+  datasource:
+    url: jdbc:mysql://localhost:3306/CALPULLIX_VIRTUAL_MANAGER_ASSISTANT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: adminadmin
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: juan.pedraza.escom12@gmail.com
+    password: juancar12
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  boot:
+    admin:
+      client:
+        url: http://localhost:9550
+
+      
+hystrix:
+  threadpool:
+    default:
+      coreSize: 35
+      maximumSize: 35
+  command: 
+    invoke: 
+      circuitBreaker:
+        requestVolumeThreshold: 35
+        sleepWindowInMilliseconds: 1000
+      metrics:
+        rollingStatus:
+          timeInMilliseconds: 60000
+      execution: 
+        isolation: 
+          thread:
+            timeoutInMilliseconds: 10000
+          semaphore: 
+            maxConcurrentRequest: 500
+            
+logging:
+  level:
+    org:
+      springframework.web: DEBUG
+      springframework.web.servlet.DispatcherServlet: DEBUG
+      springframework.cloud.sleuth: DEBUG
+    com.calpullix.service.login: DEBUG
+  pattern:
+    level: '[%X{data}%thread][%X{X-B3-TraceId:-}]-%5p'
+    
+    
+reactor.ipc.netty.channel.ChannelOperationsHandler: DEBUG
+reactor.ipc.netty.http.server.HttpServer: DEBUG
+reactor.ipc.netty.http.client: DEBUG
+io.reactivex.netty.protocol.http.client: DEBUG
+io.netty.handler: DEBUG
+io.netty.handler.proxy.HttpProxyHandler: DEBUG
+io.netty.handler.proxy.ProxyHandler: DEBUG
+org.springframework.web.reactive.function.client: DEBUG
+reactor.ipc.netty.channel: DEBUG
+    
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+  health:
+    defaults:
+      enabled: true
+    jms:
+      enabled: false 
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 10
+    serviceUrl: 
+      defaultZone: http://localhost:8761/eureka   
+  
+app:
+  message-error-location-body: Body
+  path-register-user: /calpullix/register/user
+  path-profile-user-promotions: /calpullix/profile/user/promotions/retrieve
+  subject-email: Bienvenido a CalpulliX
+  id-image: id101
+  max-pool-size: 10  
+  
+      
+      
+  
+     
+ 
